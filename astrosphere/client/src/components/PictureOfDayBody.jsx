@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
+import Switch from '@mui/material/Switch';
 
-function PictureOfDay() {
+function PictureOfDayBody() {
 
     const [data, setData] = useState();
     const [isloading, setIsLoading] = useState();
@@ -23,7 +24,7 @@ function PictureOfDay() {
     }, []);
 
     if (isloading) {
-        return <div>Loading...</div>;
+        return <div>Loadin...</div>;
     }
 
     if (error) {
@@ -35,12 +36,17 @@ function PictureOfDay() {
     }
 
     return (
+        
         <div>
-            {console.log(data)}
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <h1>{data['title']}</h1>
+            <h2>{data['date']}</h2>
+            <p>{data['explanation']}</p>
+            <Switch />
+            <img src={data['hdurl']} alt={data['title']}/>
+            <img src={data['url']} alt={data['title']}/>
         </div>
     );
 
 }
 
-export default PictureOfDay;
+export default PictureOfDayBody;
