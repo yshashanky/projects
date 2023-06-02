@@ -8,8 +8,12 @@
   }
   body {
     background: #eee;
-    background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+    /* background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); */
     padding: 0 16px;
+    /* background-color: #00f0ec; */
+    /* background-image: url("http://www.transparenttextures.com/patterns/elegant-grid.png"); */
+    /* background-color: #00b6d6; */
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
   }
   
   header {

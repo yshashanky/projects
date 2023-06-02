@@ -4,18 +4,10 @@ function App() {
 
   const [backendData, setBackendData] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("/api").then(
-  //     response => response.json()
-  //   ).then(
-  //     data => setBackendData(data)
-  //   )
-  // }, []);
-
-  const shouldLog = useRef(true);
+  const shouldFetchAPI = useRef(true);
   useEffect(() => {
-    if(shouldLog.current){
-      shouldLog.current = false;
+    if(shouldFetchAPI.current){
+      shouldFetchAPI.current = false;
       fetch("/api").then(
         response => response.json()
       ).then(
@@ -23,7 +15,7 @@ function App() {
       )
     }
   }, []);
-  
+
   return (
 
     <div>
