@@ -8,23 +8,19 @@
   }
   body {
     background: #eee;
-    /* background-image: url("https://www.transparenttextures.com/patterns/cubes.png"); */
     padding: 0 16px;
-    /* background-color: #00f0ec; */
-    /* background-image: url("http://www.transparenttextures.com/patterns/elegant-grid.png"); */
-    /* background-color: #00b6d6; */
     background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
   }
   
   header {
-    background-color: #f5ba13;
+    background-color: rgb(144, 144, 144, 0.5);
     margin: auto -16px;
     padding: 16px 32px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   }
   
   header h1 {
-    color: #fff;
+    color: #0d2e4a;
     font-family: "McLaren", cursive;
     font-weight: 200;
   }

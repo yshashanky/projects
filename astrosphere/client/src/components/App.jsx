@@ -7,7 +7,6 @@ function App() {
   return (
     <div>
     <Header />
-    <h1>Hellow</h1>
     <PictureOfDay />
     </div>
   );
