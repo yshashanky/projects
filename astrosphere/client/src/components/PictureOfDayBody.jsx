@@ -37,18 +37,21 @@ function PictureOfDayBody() {
     }
 
     const imageData = {
-        hdimage: data['hdurl'],
         image: data['url'],
         title: data['title']
     };
 
+    const explanationData = {
+        explanation: data['explanation'],
+        title: data['title'],
+        date: data['date'],
+        hdimage: data['hdurl']
+    }
+
     return (
-        
-        <div>
-            <h1>{data['title']}</h1>
-            <h2>{data['date']}</h2>
-            <ExplanationDiv data={data['explanation']}/>
+        <div className="container">
             <ImageDiv dat={imageData}/>
+            <ExplanationDiv data={explanationData}/>
         </div>
     );
 
