@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import Switch from '@mui/material/Switch';
+import ExplanationDiv from './ExplanationDiv';
+import ImageDiv from "./ImageDiv";
 
 function PictureOfDayBody() {
 
@@ -35,15 +36,19 @@ function PictureOfDayBody() {
         return null;
     }
 
+    const imageData = {
+        hdimage: data['hdurl'],
+        image: data['url'],
+        title: data['title']
+    };
+
     return (
         
         <div>
             <h1>{data['title']}</h1>
             <h2>{data['date']}</h2>
-            <p>{data['explanation']}</p>
-            <Switch />
-            <img src={data['hdurl']} alt={data['title']}/>
-            <img src={data['url']} alt={data['title']}/>
+            <ExplanationDiv data={data['explanation']}/>
+            <ImageDiv dat={imageData}/>
         </div>
     );
 
