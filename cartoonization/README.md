@@ -4,6 +4,7 @@ Python code example to apply an anime filter using the CartoonGAN model. We'll b
 
 ## Steps to follow:
 
+- [x] Install python.
 - [x] Install the necessary libraries by running the following command in your terminal: ``` pip install opencv-python tensorflow ```
 - [x] We'll use OpenCV to load the input image.
 
