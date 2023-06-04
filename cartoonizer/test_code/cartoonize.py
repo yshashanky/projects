@@ -56,7 +56,6 @@ if __name__ == '__main__':
     model_path = r'C:\Users\shash\Local\projects\cartoonizer\test_code\saved_models'
     load_folder = r'C:\Users\shash\Local\projects\cartoonizer\test_code\test_images'
     save_folder = r'C:\Users\shash\Local\projects\cartoonizer\test_code\cartoonized_images'
-    print(os.path)
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
     cartoonize(load_folder, save_folder, model_path)
