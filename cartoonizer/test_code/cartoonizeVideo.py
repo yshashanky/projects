@@ -1,3 +1,5 @@
+import cv2
+import os
 import os
 import cv2
 import numpy as np
@@ -7,6 +9,28 @@ tf.disable_v2_behavior()
 import network
 import guided_filter
 from tqdm import tqdm
+
+def extract_frames(video_path, output_folder):
+    # Create the output folder if it doesn't exist
+    os.makedirs(output_folder, exist_ok=True)
+
+    # Read the video file
+    cap = cv2.VideoCapture(video_path)
+
+    # Get the total number of frames
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    # Iterate over each frame and save it as an image file
+    for frame_index in range(total_frames):
+        # Read the frame
+        ret, frame = cap.read()
+
+        # Save the frame as an image file
+        frame_path = os.path.join(output_folder, f"frame_{frame_index:05d}.jpg")
+        cv2.imwrite(frame_path, frame)
+
+    # Release the video capture object
+    cap.release()
 
 def resize_crop(image):
     h, w, c = np.shape(image)
@@ -52,10 +76,44 @@ def cartoonize(load_folder, save_folder, model_path):
         except:
             print('cartoonize {} failed'.format(load_path))
 
+def combine_frames(input_folder, output_path, output_fps):
+    # Get the list of frame filenames in the input folder
+    frame_filenames = sorted(os.listdir(input_folder))
+
+    # Get the width and height of the first frame
+    frame_path = os.path.join(input_folder, frame_filenames[0])
+    frame = cv2.imread(frame_path)
+    height, width, channels = frame.shape
+
+    # Initialize the video writer
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+    out = cv2.VideoWriter(output_path, fourcc, output_fps, (width, height))
+
+    # Iterate over each frame and write it to the video file
+    for frame_filename in frame_filenames:
+        frame_path = os.path.join(input_folder, frame_filename)
+        frame = cv2.imread(frame_path)
+        out.write(frame)
+
+    # Release the video writer
+    out.release()
+
 if __name__ == '__main__':
     model_path = 'cartoonizer\\test_code\\saved_models'
     load_folder = 'cartoonizer\\test_code\\test_images'
     save_folder = 'cartoonizer\\test_code\\cartoonized_images'
+    video_path = "cartoonizer\\test_code\\video.mp4"
+    input_folder = "cartoonizer\\test_code\\cartoonized_images"
+    output_video_path = "cartoonizer\\test_code\\output_video.mp4"
+
+    # Extract frames from the video
+    extract_frames(video_path, load_folder)
+
     if not os.path.exists(save_folder):
         os.mkdir(save_folder)
     cartoonize(load_folder, save_folder, model_path)
+    
+    output_fps = 34  # Adjust the frame rate as per your requirements
+
+    # Combine frames into a video
+    combine_frames(input_folder, output_video_path, output_fps)
