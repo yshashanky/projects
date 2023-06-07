@@ -9,6 +9,7 @@ tf.disable_v2_behavior()
 import network
 import guided_filter
 from tqdm import tqdm
+from moviepy.editor import VideoFileClip
 
 def extract_frames(video_path, output_folder):
     # Create the output folder if it doesn't exist
@@ -98,6 +99,22 @@ def combine_frames(input_folder, output_path, output_fps):
     # Release the video writer
     out.release()
 
+def combineAudioAndVideo(video_path_1, video_path_2):
+    
+    audio_path = 'cartoonizer\\test_code\\extracted_audio.mp3'
+    output_path = "cartoonizer\\test_code\\soutput_video.mp4"
+
+    # Step 1: Extract audio from the first video
+    video_clip = VideoFileClip(video_path_1)
+    audio_clip = video_clip.audio
+    audio_clip.write_audiofile(audio_path)
+
+    # Step 2: Add the extracted audio to the second video
+    video_clip_2 = VideoFileClip(video_path_2)
+    video_clip_2 = video_clip_2.set_audio(audio_clip)
+    video_clip_2.write_videofile(output_path, codec='libx264')
+
+
 if __name__ == '__main__':
     model_path = 'cartoonizer\\test_code\\saved_models'
     load_folder = 'cartoonizer\\test_code\\test_images'
@@ -113,7 +130,10 @@ if __name__ == '__main__':
         os.mkdir(save_folder)
     cartoonize(load_folder, save_folder, model_path)
     
-    output_fps = 34  # Adjust the frame rate as per your requirements
+    output_fps = 28  # Adjust the frame rate as per your requirements
 
     # Combine frames into a video
     combine_frames(input_folder, output_video_path, output_fps)
+
+    # Combine audio into video
+    combineAudioAndVideo(video_path, output_video_path)
